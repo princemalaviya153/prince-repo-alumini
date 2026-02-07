@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, DollarSign, Clock } from 'lucide-react';
+import { AuthContext } from '../context/AuthContext';
+import { useContext } from 'react';
 
 const JobBoard = () => {
+    const auth = useContext(AuthContext);
     const [jobs, setJobs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState({
@@ -42,9 +45,12 @@ const JobBoard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold text-gray-900">Job Board</h1>
-                <Link to="/jobs/new" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    Post a Job
-                </Link>
+                {/* Hide Post Job for Students */}
+                {auth?.user?.role !== 'student' && (
+                    <Link to="/jobs/new" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Post a Job
+                    </Link>
+                )}
             </div>
 
             {/* Filters */}
@@ -114,14 +120,16 @@ const JobBoard = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <a
-                                        href={job.applicationUrl || `mailto:?subject=Application for ${job.title}`}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 text-sm font-medium"
-                                    >
-                                        Apply Now
-                                    </a>
+                                    {auth?.user?.role !== 'admin' && (
+                                        <a
+                                            href={job.applicationUrl || `mailto:?subject=Application for ${job.title}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 text-sm font-medium"
+                                        >
+                                            Apply Now
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         ))}

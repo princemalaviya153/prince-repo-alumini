@@ -34,7 +34,15 @@ const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:ml-6 md:flex md:space-x-8 md:items-center">
-                        {navLinks.map((link) => (
+                        {navLinks.filter(link => {
+                            if (user?.role === 'event_coordinator') {
+                                return link.name === 'Events';
+                            }
+                            if (user?.role === 'student') {
+                                return link.name !== 'Donate';
+                            }
+                            return true;
+                        }).map((link) => (
                             <Link key={link.name} to={link.path} className="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
                                 {link.name}
                             </Link>

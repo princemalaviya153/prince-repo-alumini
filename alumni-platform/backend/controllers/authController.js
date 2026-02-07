@@ -5,7 +5,12 @@ const jwt = require('jsonwebtoken');
 // Register User
 exports.register = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
+
+        // Student Email Validation
+        if (role === 'student' && !email.endsWith('@charusat.edu.in')) {
+            return res.status(400).json({ message: 'Students must use a @charusat.edu.in email address' });
+        }
 
         // Check if user exists
         let user = await User.findOne({ email });
@@ -21,7 +26,8 @@ exports.register = async (req, res) => {
         user = new User({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role: role || 'alumni'
         });
 
         await user.save();

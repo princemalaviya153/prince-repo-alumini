@@ -5,7 +5,7 @@ interface User {
     id: string;
     name: string;
     email: string;
-    role: 'alumni' | 'admin';
+    role: 'alumni' | 'admin' | 'student' | 'event_coordinator';
     profilePhoto?: string;
     isProfileComplete?: boolean;
 }

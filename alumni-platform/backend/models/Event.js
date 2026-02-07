@@ -11,7 +11,7 @@ const eventSchema = new mongoose.Schema({
     currentAttendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     bannerImage: String,
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    status: { type: String, enum: ['upcoming', 'past'], default: 'upcoming' }
+    status: { type: String, enum: ['pending', 'upcoming', 'past', 'rejected'], default: 'upcoming' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Event', eventSchema);

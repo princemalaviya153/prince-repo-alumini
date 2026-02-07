@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import { Award, Star } from 'lucide-react';
 
 const Stories = () => {
@@ -21,6 +22,9 @@ const Stories = () => {
         fetchStories();
     }, []);
 
+    const auth = React.useContext(AuthContext); // Import AuthContext first
+    const user = auth?.user;
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex justify-between items-center mb-8">
@@ -28,10 +32,12 @@ const Stories = () => {
                     <h1 className="text-3xl font-bold text-gray-900">Alumni Success Stories</h1>
                     <p className="text-gray-600 mt-2">Celebrating the achievements of our global community</p>
                 </div>
-                <Link to="/stories/new" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center">
-                    <Star className="h-4 w-4 mr-2" />
-                    Share Your Story
-                </Link>
+                {user?.role !== 'student' && (
+                    <Link to="/stories/new" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center">
+                        <Star className="h-4 w-4 mr-2" />
+                        Share Your Story
+                    </Link>
+                )}
             </div>
 
             {loading ? <div className="text-center py-10">Loading stories...</div> :

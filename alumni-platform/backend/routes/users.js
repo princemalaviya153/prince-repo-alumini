@@ -7,9 +7,16 @@ const User = require('../models/User');
 router.get('/', auth, async (req, res) => {
     try {
         res.set('Cache-Control', 'no-store');
-        const { name, company, graduationYear, fieldOfStudy, industry, location, page = 1, limit = 10 } = req.query;
+        const { name, company, graduationYear, fieldOfStudy, industry, location, role, page = 1, limit = 10 } = req.query;
 
-        const query = { role: 'alumni' }; // Only show alumni
+        let query = {};
+
+        // Role Filter (Admin can view students, others only see alumni)
+        if (req.user.role === 'admin' && role) {
+            query.role = role;
+        } else {
+            query.role = 'alumni';
+        }
 
         // Search (Case insensitive, partial match)
         if (name) query.name = { $regex: name, $options: 'i' };
