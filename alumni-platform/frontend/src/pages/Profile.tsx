@@ -161,61 +161,69 @@ const Profile = () => {
                 </div>
 
                 {/* Academic Info */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
-                    <div className="col-span-2">
-                        <h2 className="text-xl font-semibold mb-3 text-gray-700">Academic Information</h2>
+                {user?.role !== 'admin' && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
+                        <div className="col-span-2">
+                            <h2 className="text-xl font-semibold mb-3 text-gray-700">Academic Information</h2>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Degree</label>
+                            <select {...register('degree')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Select Degree</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="M.Tech">M.Tech</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="M.Sc">M.Sc</option>
+                                <option value="PhD">PhD</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Field of Study</label>
+                            <input {...register('fieldOfStudy')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Graduation Year</label>
+                            <input type="number" {...register('graduationYear')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                            <p className="text-red-500 text-xs mt-1">{errors.graduationYear?.message}</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Student ID (Optional)</label>
+                            <input {...register('studentId')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Degree</label>
-                        <select {...register('degree')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                            <option value="">Select Degree</option>
-                            <option value="B.Tech">B.Tech</option>
-                            <option value="M.Tech">M.Tech</option>
-                            <option value="B.Sc">B.Sc</option>
-                            <option value="M.Sc">M.Sc</option>
-                            <option value="PhD">PhD</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Field of Study</label>
-                        <input {...register('fieldOfStudy')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Graduation Year</label>
-                        <input type="number" {...register('graduationYear')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-                        <p className="text-red-500 text-xs mt-1">{errors.graduationYear?.message}</p>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Student ID (Optional)</label>
-                        <input {...register('studentId')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                </div>
+                )}
 
                 {/* Professional Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
                     <div className="col-span-2">
                         <h2 className="text-xl font-semibold mb-3 text-gray-700">Professional Details</h2>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Current Position</label>
-                        <input {...register('currentPosition')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Company</label>
-                        <input {...register('company')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Industry</label>
-                        <select {...register('industry')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                            <option value="">Select Industry</option>
-                            <option value="Technology">Technology</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Healthcare">Healthcare</option>
-                            <option value="Education">Education</option>
-                            <option value="Manufacturing">Manufacturing</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
+
+                    {!['student', 'event_coordinator', 'admin'].includes(user?.role || '') && (
+                        <>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Current Position</label>
+                                <input {...register('currentPosition')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Company</label>
+                                <input {...register('company')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Industry</label>
+                                <select {...register('industry')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select Industry</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Manufacturing">Manufacturing</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </>
+                    )}
+
                     <div>
                         <label className="block text-sm font-medium text-gray-700">LinkedIn Profile</label>
                         <input {...register('linkedIn')} placeholder="https://linkedin.com/in/..." className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
