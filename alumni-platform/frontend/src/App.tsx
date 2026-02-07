@@ -14,6 +14,7 @@ import EventCreate from './pages/EventCreate';
 import Donation from './pages/Donation';
 import StorySubmit from './pages/StorySubmit';
 import Stories from './pages/Stories';
+import Mentorship from './pages/Mentorship';
 import Home from './pages/Home';
 
 const Layout = () => {
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/donate" element={<Donation />} />
                 <Route path="/stories" element={<Stories />} />
                 <Route path="/stories/new" element={<StorySubmit />} />
+                <Route path="/mentorship" element={<Mentorship />} />
               </Route>
             </Route>
 

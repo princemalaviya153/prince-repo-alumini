@@ -8,6 +8,15 @@ interface User {
     role: 'alumni' | 'admin' | 'student' | 'event_coordinator';
     profilePhoto?: string;
     isProfileComplete?: boolean;
+    // Mentorship & Professional Fields
+    isMentor?: boolean;
+    mentorshipFocus?: string[];
+    mentorshipBio?: string;
+    mentorshipCapacity?: number;
+    preferredMentorshipMode?: 'virtual' | 'in-person' | 'both';
+    company?: string;
+    currentPosition?: string;
+    industry?: string;
 }
 
 interface AuthContextType {

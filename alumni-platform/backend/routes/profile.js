@@ -27,13 +27,16 @@ router.put('/', auth, upload.single('profilePhoto'), async (req, res) => {
     const {
         name, phone, graduationYear, degree, fieldOfStudy,
         studentId, currentPosition, company, industry, location,
-        bio, linkedIn, skills
+        bio, linkedIn, skills,
+        // Mentorship Fields
+        isMentor, mentorshipFocus, mentorshipBio, mentorshipCapacity, preferredMentorshipMode
     } = req.body;
 
     const profileFields = {
         name, phone, graduationYear, degree, fieldOfStudy,
         studentId, currentPosition, company, industry, location,
         bio, linkedIn, skills,
+        isMentor, mentorshipFocus, mentorshipBio, mentorshipCapacity, preferredMentorshipMode,
         isProfileComplete: true
     };
 

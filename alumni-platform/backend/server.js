@@ -25,6 +25,7 @@ app.use('/api/jobs', require('./routes/jobs'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/donations', require('./routes/donations'));
 app.use('/api/stories', require('./routes/stories'));
+app.use('/api/mentorship', require('./routes/mentorship'));
 
 app.get('/', (req, res) => {
     res.send('Alumni Platform API is running');

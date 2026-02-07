@@ -24,6 +24,13 @@ const userSchema = new mongoose.Schema({
     skills: [String],
 
     isProfileComplete: { type: Boolean, default: false },
+
+    // Mentorship Fields
+    isMentor: { type: Boolean, default: false },
+    mentorshipFocus: [String], // e.g., "Career Guidance", "Resume Review"
+    mentorshipCapacity: { type: Number, default: 1 },
+    mentorshipBio: String,
+    preferredMentorshipMode: { type: String, enum: ['virtual', 'in-person', 'both'], default: 'virtual' },
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

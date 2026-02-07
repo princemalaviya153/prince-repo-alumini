@@ -20,6 +20,7 @@ const Navbar = () => {
         { name: 'Events', path: '/events' },
         { name: 'Donate', path: '/donate' },
         { name: 'Stories', path: '/stories' },
+        { name: 'Mentorship', path: '/mentorship' },
     ];
 
     return (
@@ -40,6 +41,10 @@ const Navbar = () => {
                             }
                             if (user?.role === 'student') {
                                 return link.name !== 'Donate';
+                            }
+                            if (user?.role === 'admin') {
+                                // Admins might not need to see Mentorship if it's strictly Alumni-Student, but good for oversight.
+                                return true;
                             }
                             return true;
                         }).map((link) => (
